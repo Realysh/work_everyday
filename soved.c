@@ -1,20 +1,23 @@
 #include <stdio.h>
-#include <string.h>
-int main(){
-    int t,n,c,a;
-    float g,sum;
 
+int main(){
+    int t,i,j,tmp;
     scanf("%d",&t);
-    while(t--){
-        sum=0;
-        a=0;
-        scanf("%d",&n);
-        while(n--){
-            scanf("%d%f",&c,&g);
-            sum+=c*g;
-            a+=c;
+    int arr[t];
+    for(i=0;i<t;i++){
+        scanf("%d",&arr[i]);
+    }
+    for(i=0;i<t;i++){
+        for(j=0;j<t-1;j++){
+            if(arr[j]>arr[j+1]){
+                tmp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=tmp;
+            }
         }
-        printf("%d %.1f\n",a,sum/a);
+    }
+    for(i=0;i<t;i++){
+        printf("%d\n",arr[i]);
     }
     return 0;
 }
