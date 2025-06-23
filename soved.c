@@ -1,22 +1,29 @@
 #include <stdio.h>
 #include <string.h>
 int main(){
-    char ip[1000002];
-    fgets(ip,1000002,stdin);
-    char *p=strchr(ip,'\n');
-    if(p!=NULL) *p='\0';
-    int i,num=0;
-    for(i=0;ip[i]!='\0' && i<=1000002;i++){
-        if(i==0&&ip[i]==' '){
-            i++;
-        }
-        if(ip[i]!=' '){
-            num++;
-            while(ip[i]!=' '&& ip[i]!='\0'){
-                i++;
+    int t,i;
+    char tmp[50];
+    scanf("%d",&t);
+    char arr[t][50];
+    for(i=0;i<t;i++){
+        scanf("%s",arr[i]);
+    }
+    for(i=0;i<t;i++){
+        for(int j=0;j<t;j++){
+            if(strlen(arr[i])<strlen(arr[j])){
+                strcpy(tmp, arr[j]);
+                strcpy(arr[j], arr[i]);
+                strcpy(arr[i], tmp);
+            }
+            if(strlen(arr[i])==strlen(arr[i+1])&&strcmp(arr[i],arr[i+1])<0&&i<t-1){
+                strcpy(tmp, arr[i]);
+                strcpy(arr[i], arr[i+1]);
+                strcpy(arr[i+1], tmp);
             }
         }
     }
-    printf("%d",num);
+    for(i=0;i<t;i++){
+        printf("%s\n",arr[i]);
+    }
     return 0;
 }
