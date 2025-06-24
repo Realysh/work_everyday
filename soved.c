@@ -1,44 +1,27 @@
 #include <stdio.h>
-#include <string.h>
+
+void f();//cpu는 main()함수만 호출이 가능함
+
+int x=1;//전역변수
+
 int main(){
-    int t,i,j,k;
-    char tmp[50];
-    scanf("%d",&t);
-    char arr[t][50];
-
-    for(i=0;i<t;i++){
-        scanf("%s",arr[i]);
+    int a=10;
+    {
+        int a=20;
+        int b = 30;
+        printf("%d\n",a);
     }
-    
-    for(i=0;i<t;i++){
-        for(j=0;j<t;j++){
-            if(strcmp(arr[i],arr[j])==0){
-                for(k=j;k<t-1;k++){
-                    if(k==t-1)
-                        arr[k][0]='\0';
-                    else
-                        strcpy(arr[k],arr[k+1]);
-                }
-            }
-        }
-    }
-    for(i=0;i<t;i++){
-        for(j=0;j<t;j++){
-            if(strlen(arr[i])<strlen(arr[j])){
-                strcpy(tmp, arr[j]);
-                strcpy(arr[j], arr[i]);
-                strcpy(arr[i], tmp);
-            }
-            if(strlen(arr[i])==strlen(arr[i+1])&&strcmp(arr[i],arr[i+1])<0&&i<(t-1)){
-                strcpy(tmp, arr[i]);
-                strcpy(arr[i], arr[i+1]);
-                strcpy(arr[i+1], tmp);
-            }
-        }
-    }
-
-    for(i=0;i<t;i++){
-        printf("%s\n",arr[i]);
-    }
+    printf("%d\n",a);
+    printf("%d\n",x);
+    printf("%d\n",b); //블럭 외에서 b가 생성되었기 때문에 해당사항 없음. 지역변수임.
+    f();//호출
     return 0;
+}
+
+void f(){
+    int a = 5;
+    {
+        int x = 110;
+        printf("%d %d\n",a,x);
+    }
 }

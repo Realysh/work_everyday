@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "/usr/bin/gcc",
             "args": [
-                "-g", // 디버깅 정보를 포함
+                "-g",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
@@ -16,7 +16,24 @@
                 "isDefault": true
             },
             "problemMatcher": ["$gcc"],
-            "detail": "활성 파일을 빌드합니다."
+            "detail": "활성 파일을 C로 빌드합니다."
+        },
+        {
+            "label": "g++ build active file",
+            "type": "shell",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "활성 파일을 C++로 빌드합니다."
         }
     ]
 }
