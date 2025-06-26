@@ -1,3 +1,5 @@
+#ifndef EXP_H
+#define EXP_H
 //선언부
 class Exp{
 private: //encapsulaion / 생략 가능함.
@@ -14,3 +16,5 @@ public:
     bool equals(Exp b);
     int calc();
 };
+
+#endif

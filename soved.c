@@ -1,27 +1,45 @@
 #include <stdio.h>
+#define maxStackSize 100000 //좌측 변수 내지 상수가 우측의 의미이다.
 
-void f();//cpu는 main()함수만 호출이 가능함
+typedef int element;
+typedef struct{
+    int top;
+    int data[maxStackSize];
+}Stack;
 
-int x=1;//전역변수
-
-int main(){
-    int a=10;
-    {
-        int a=20;
-        int b = 30;
-        printf("%d\n",a);
-    }
-    printf("%d\n",a);
-    printf("%d\n",x);
-    printf("%d\n",b); //블럭 외에서 b가 생성되었기 때문에 해당사항 없음. 지역변수임.
-    f();//호출
-    return 0;
+void init_stack(Stack *p){
+    p->top=-1;
+}
+void push(element item,Stack *p){
+    p->data[++p->top]=item;
 }
 
-void f(){
-    int a = 5;
-    {
-        int x = 110;
-        printf("%d %d\n",a,x);
+int pop(Stack *s){
+    return s->data[s->top--];
+}
+
+int sum(Stack *p){
+    int i;
+    int sum=0;
+    for(i=0;i<=p->top;i++){
+        sum+=p->data[i];
     }
+    return sum;
+}
+
+int main(){
+    Stack s; //스택 선언
+    init_stack(&s);
+    
+    int t,input;
+    scanf("%d",&t);
+    while(t--){
+        scanf("%d",&input);
+        if(!input)
+            pop(&s);
+        else
+            push(input,&s);
+    }
+    printf("%d",sum(&s));
+    return 0;
 }

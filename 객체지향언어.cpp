@@ -1,65 +1,28 @@
-#include <iostream> //전처리를 지시하는 
 #include <iostream>
-using namespace std; //이름 뭔지 모르는 것 만나면 std안에서 먼저 찾아봐라.
+#include <string>
+using namespace std;
 
-#include "Exp.h" //앞에 #이 있으면 컴파일러 -> 전처리기 불러서 먼저 해석하라고 함.
-//구현부
-Exp::Exp(int b,int e){
-    base=b;
-    exp=e;
-    calc();
+//클래스 선언부
+class Circle{
+public:
+    int radius;
+    double getArea();
+    Circle(int r);
+};
+//클래스 구성부
+Circle::Circle(int r):radius(r){
+    cout<<"반지름"<<radius<<"원 생성"<<endl;
 }
-
-Exp::Exp(int b){
-    base=b;
-    exp=1;
-    calc();
-}
-
-//혹은
-// Exp::Exp(int b):Exp(b,1){
-// }
-//이렇게 풀어냄
-
-
-Exp::Exp(){
-    base=1;
-    exp=1;
-    calc();
-}
-//해당 코드는
-// Exp::Exp():Exp(1,1){
-// }
-
-int Exp::getValue(){
-    return calc();
-}
-
-int Exp::calc(){
-    int res=1;
-    for(int i=0;i<exp;i++){
-        res=res*base;
-    }
-}
-
-bool Exp::equals(Exp b){
-    if(getValue()==b.getValue()) return true;
-    else return false;
+double Circle::getArea(){
+    return radius*radius*3.14;
 }
 int main(){
-    Exp a(3,2); //Exp 클래스 / 1.(컴파일하면)메모리를 할당 받은 객체 생성됨. 2.함수가 호출이 됨.
-    Exp b(9); 
-    Exp c; //1,1승을 의미함.(매개변수 x 생성자 생성 필요.)
-
-    //a,b,c가 각각의 메모리를 할당받은 객체가 생성됨
-
-    cout << a.getValue()<<' '<< b.getValue()<<' '<<c.getValue()<<endl;
-    cout << a.getBase()<<' '<<a.getExp()<<' '<<endl;
-    cout << b.getBase()<<' '<<b.getExp()<<endl;
+    Circle pizza(30);
+    Circle donut(1);
     
-    if(a.equals(b)){
-        cout<<"same"<<endl;
-    }
-    else
-        cout<<"not same"<<endl;
+    double area=donut.getArea();
+    cout<<"donut의 면적은"<<area<<"입니다."<<endl;
+    area=pizza.getArea();
+    cout<<"pizza의 면적은"<<area<<"입니다."<<endl;
+    cout<<area;
 }
