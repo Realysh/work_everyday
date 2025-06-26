@@ -1,24 +1,63 @@
 #include <iostream>
-using namespace std;
+using namespace std; //이름 뭔지 모르는 것 만나면 std안에서 먼저 찾아봐라.
 
-class Rectangle{
+class Exp{
+private: //encapsulaion / 생략 가능함.
+    int base; //베이스
+    int exp; //지수 / 공개된 지수가 아님.
 public:
-    int width;
-    int height;
-    int getArea();
+    Exp(int b,int e); //생성자(1) /prototype(원형) 선언
+    Exp(int b); //생성자(2)
+    Exp();
+    int getValue(); //함수는 return type이 있어야 함.
+    //또한 camel case 해야함.->2번째 첫글자 대문자로 표기
+    int getBase() {return base;} //inline 함수
+    int getExp(){ return exp;}
+    bool equals(Exp b);
 };
-int Rectangle::getArea(){
-    return width*height;
+
+//구현부
+Exp::Exp(int b,int e){
+    base=b;
+    exp=e;
+}
+
+Exp::Exp(int b){
+    base=b;
+    exp=1;
+}
+
+Exp::Exp(){
+    base=1;
+    exp=1;
+}
+
+int Exp::getValue(){
+    int res=1;
+    for(int i=0;i<exp;i++){
+        res=res*base;
+    }
+    return res;
+}
+
+bool Exp::equals(Exp b){
+    if(getValue()==b.getValue()) return true;
+    else return false;
 }
 int main(){
-    Rectangle square;
-    
-    cout<<"너비>>";
-    cin>>square.width;
-    cout<<"높이";
-    cin>>square.height;
+    Exp a(3,2); //Exp 클래스 / 1.(컴파일하면)메모리를 할당 받은 객체 생성됨. 2.함수가 호출이 됨.
+    Exp b(9); 
+    Exp c; //1,1승을 의미함.(매개변수 x 생성자 생성 필요.)
 
-    int area=square.getArea();
-    cout<<"사각형의 면적은 "<<area;
-    return 0;
+    //a,b,c가 각각의 메모리를 할당받은 객체가 생성됨
+
+    cout << a.getValue()<<' '<< b.getValue()<<' '<<c.getValue()<<endl;
+    cout << a.getBase()<<' '<<a.getExp()<<' '<<endl;
+    cout << b.getBase()<<' '<<b.getExp()<<endl;
+    
+    if(a.equals(b)){
+        cout<<"same"<<endl;
+    }
+    else
+        cout<<"not same"<<endl;
 }

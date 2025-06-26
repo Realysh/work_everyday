@@ -1,25 +1,20 @@
 #include <stdio.h>
-
+//구조체 선언과 메모리 요청
+typedef struct{
+    int no;
+    double height;
+}student;
 int main(){
-    // int a = 10;
-    // int *p = &a; //주소를 저장하는 변수 : 포인터 변수 / 그 외는 : 그냥 변수
-    // printf("%u\n",&a);
-    // printf("%u\n",p);
+    student stu;
+    stu.no = 100;
+    stu.height=178.5;
 
-    // printf("%d\n",a);
-    // printf("%d\n",*p);
+    printf("%d: \t",stu.no);
+    printf("%5.1f\n",stu.height);
 
-    //배열과 포인터 변수
-    int arr[3]={10,20,30};
-    int *p=arr; //&arr[0]
-    printf("%d, %d\n",arr[0],*p);
-    printf("%d, %d\n",arr[1],*(p+1));
-    printf("%d, %d\n",arr[2],*(p+2));
-
-    for(int i=0;i<3;i++){
-        printf("%d %d\n",arr[i],*(p+i));
-    }
-    
-    
+    //구조체와 포인터 변수
+    student *s=&stu;
+    printf("%d: \t",s->no);
+    printf("%5.1f \n",s->height);
     return 0;
 }
