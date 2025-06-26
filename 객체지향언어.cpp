@@ -3,37 +3,44 @@
 using namespace std;
 
 //클래스 선언부
-class Rectangle{
+class Circle{
 public:
-    int width;
-    int height;
-
-    Rectangle();
-    Rectangle(int length);
-    Rectangle(int w,int h);
-    bool isSquare();
+    int r;
+    Circle();
+    Circle(int radius);
+    ~Circle();
+    double area();
 };
-//클래스 구성부
-Rectangle::Rectangle(){
-    width=height=1;
+Circle glDonut(1000);
+Circle glPizza(2000);
+Circle::Circle(){
+    r=1;
+    cout<<"반지름"<<r<<"원 생성"<<endl;
 }
-Rectangle::Rectangle(int length){
-    width=height=length;
+
+Circle::Circle(int radius):r(radius){
+    cout<<"반지름"<<r<<"원 생성"<<endl;
 }
-Rectangle::Rectangle(int w,int h){
-    width=w;
-    height=h;
+
+Circle::~Circle(){
+    cout<<"반지름"<<r<<"원 소멸"<<endl;
 }
-bool Rectangle::isSquare(){//따로 매개변수를 받지는 않음.
-    if(width==height) return true;
-    else return false;
+
+double Circle::area(){
+    return r*r*3.14;
+}
+
+void f(){
+    Circle fDonut(100);
+    Circle fPizza(200);
+    cout<<"---------------\n";
+    //소멸선.
+    //이 객체들은 실행이 끝나면 바로 소ㅕㄹ됨.
 }
 int main(){
-    Rectangle rect1;
-    Rectangle rect2(3,5);
-    Rectangle rect3(3);
+    Circle donut; //여기서 이미 Circle클래스 호출해서 
+    //원의 반지름 1 출력됨.
+    Circle pizza(30);
+    f(); //함수 실행하면 끝남.
 
-    if(rect1.isSquare()) cout<<"rect1는 정사각형이다\n";
-    if(rect2.isSquare()) cout<<"rect2는 정사각형이다\n";
-    if(rect3.isSquare()) cout<<"rect3는 정사각형이다\n";
 }
