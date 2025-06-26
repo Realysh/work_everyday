@@ -1,6 +1,7 @@
 #include <iostream>
-#include <string>
 using namespace std;
+
+//c++ day3 chp3 : 지역객체와 전역객체의 생성 및 소멸 순서
 
 //클래스 선언부
 class Circle{
@@ -41,6 +42,5 @@ int main(){
     Circle donut; //여기서 이미 Circle클래스 호출해서 
     //원의 반지름 1 출력됨.
     Circle pizza(30);
-    f(); //함수 실행하면 끝남.
-
+    f(); //함수 실행하면 끝남.4
 }
