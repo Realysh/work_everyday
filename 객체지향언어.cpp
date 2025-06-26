@@ -3,26 +3,37 @@
 using namespace std;
 
 //클래스 선언부
-class Circle{
+class Rectangle{
 public:
-    int radius;
-    double getArea();
-    Circle(int r);
+    int width;
+    int height;
+
+    Rectangle();
+    Rectangle(int length);
+    Rectangle(int w,int h);
+    bool isSquare();
 };
 //클래스 구성부
-Circle::Circle(int r):radius(r){
-    cout<<"반지름"<<radius<<"원 생성"<<endl;
+Rectangle::Rectangle(){
+    width=height=1;
 }
-double Circle::getArea(){
-    return radius*radius*3.14;
+Rectangle::Rectangle(int length){
+    width=height=length;
+}
+Rectangle::Rectangle(int w,int h){
+    width=w;
+    height=h;
+}
+bool Rectangle::isSquare(){//따로 매개변수를 받지는 않음.
+    if(width==height) return true;
+    else return false;
 }
 int main(){
-    Circle pizza(30);
-    Circle donut(1);
-    
-    double area=donut.getArea();
-    cout<<"donut의 면적은"<<area<<"입니다."<<endl;
-    area=pizza.getArea();
-    cout<<"pizza의 면적은"<<area<<"입니다."<<endl;
-    cout<<area;
+    Rectangle rect1;
+    Rectangle rect2(3,5);
+    Rectangle rect3(3);
+
+    if(rect1.isSquare()) cout<<"rect1는 정사각형이다\n";
+    if(rect2.isSquare()) cout<<"rect2는 정사각형이다\n";
+    if(rect3.isSquare()) cout<<"rect3는 정사각형이다\n";
 }
