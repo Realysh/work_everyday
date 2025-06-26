@@ -1,14 +1,13 @@
 #include <iostream>
+#include <string>
 #include <algorithm>
 
 using namespace std;
 
 int main(){
-    int a,b;
-    cin>>a>>b;
-    while(a--){
-        char arr[b];
-        cin>>arr;
-        
-    }
+    int t;
+    cin>>t;
+    
+    char arr[t][t];
+    
 }
