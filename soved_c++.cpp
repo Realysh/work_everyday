@@ -5,25 +5,23 @@
 using namespace std;
 
 int main(){
-    string a;
-    getline(cin,a);
-    int len=a.size();
-    int i,count=0;
-
-    for(i=0;i<len;i++){
-        if(a[i]==' '||a[i]=='0')
-            continue;
-        else{
-            if(a[i]=='-'){
-                i++;
-                while(isdigit(a[i])) i++;
+    int t,h,w,n;
+    int i,j,floor,unit;
+    cin>>t;
+    while(t--){
+        cin>>h>>w>>n;
+        for(i=1;i<=w;i++){
+            for(j=1;j<=h;j++){
+                n--;
+                if(n==0){
+                    floor=j;
+                    unit=i;
+                    break;
+                }
             }
-            else{
-                count++;
-                while(isdigit(a[i])) i++;
-            }
+            if(n==0) break;
         }
+        printf("%d%02d\n",floor,unit);
     }
-    cout<<count;
     return 0;
 }
