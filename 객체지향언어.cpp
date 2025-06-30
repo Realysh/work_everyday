@@ -1,27 +1,37 @@
 #include <iostream>
+#include <string>
+// #include <algorithm>
+// #include <cctype>
+#include <random>
 using namespace std;
 
-class Circle{
-// public:
-    int radius;
-public:
-    Circle();
-    Circle(int r);
-    double getArea();
-};
-Circle::Circle(){
-    radius=1;
-}
-Circle::Circle(int r){
-    radius=r;
-}
-double Circle::getArea(){
-    return radius*radius*3.14;
-}
 int main(){
-    Circle waffle;
-    waffle.radius=5;
-    
-    double area=waffle.getArea();
-    cout<<"원의 반지름>>"<<waffle.radius<<" 원의 넓이>>"<<area<<endl;
+    srand((unsigned)time(0));
+    string input;
+    cout<<"한 줄 입력"<<endl;
+    while(true){
+        cout<<">>";
+        getline(cin,input);
+        
+        //exit()이면 탈출
+        if(input == "exit")
+            break;
+        //랜덤 위치 결정
+        int length = input.size();
+        int index = rand()%length;
+
+        //랜덤 문자 생성
+        int n = rand()%26;
+        char c = 'a' + n;
+
+        //변경 -> random한 글자와 기존 index글자가 같다면 -> 대문자
+        if(input.at(index)==c)
+            input.at(index)='A'+n;
+        else
+            input.at(index)=c;
+        //변경
+        input.at(index) = c;
+        cout<<input<<endl;
+    }
+    return 0;
 }

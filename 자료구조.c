@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#define MaxStackSize 100
+#define MaxStackSize 20
 
 typedef struct{
     short r;
@@ -48,6 +48,7 @@ element peek(Stack *p){
     else return p->data[p->top];
 }
 
+//getch 함수를 설정하여, 터미널의 출력의 버퍼링을 제거하여 입력과 동시에 출력값이 나오도록 설정함.
 char getch() {
     struct termios oldt, newt;
     char ch;
@@ -60,6 +61,8 @@ char getch() {
     return ch;
 }
 
+//미로 생성:
+//구성 요소는 벽:1, 길:0, 폭탄:B ,출발지:e, 도착지:x
 char maze[8][8] = {
     {'1','1','1','1','1','1','1','1'},
     {'e','0','0','0','1','0','B','1'},

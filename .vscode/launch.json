@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+    
         {
             "name": "C: gcc 빌드 및 디버그 활성 파일",
             "type": "cppdbg",
@@ -26,6 +27,19 @@
             "externalConsole": true,
             "MIMode": "lldb",
             "preLaunchTask": "g++ build active file"
+        },
+        {
+            "name": "C++ Debug (build all)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: g++ build all"
         }
     ]
 }
