@@ -26,8 +26,11 @@ public:
     Stack(const Stack& src); //복사 생성자 / 원본을 훼손하지 않는다는 조건의 const
 };
 Stack::Stack(const Stack& src){ //컴파일러가 만들어지는 생성자
-    this->p = src.p;
-    this->tos=src.tos;
+    p=new int[src.size];
+    for(int i=0;i<src.tos;i++){
+        p[i]=src.p[i];
+    }
+    tos=src.tos;
     size=src.size;
     //얕은 복사 코드
 }
