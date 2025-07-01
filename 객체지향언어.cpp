@@ -3,28 +3,36 @@
 #include <sstream>
 using namespace std;
 
-class Circle{
-    int radius;
+class Stack{
+    int p[10]={0}; //초기화 할 필요는 없긴함.
+    int tos=0;
 public:
-    void setRadius(int r){radius=r;}
-    double getArea();
+    Stack(){}//생성자
+    bool push(int n); //성공하면 true, 실패하면 false
+    bool pop(int &n);
 };
-
-double Circle::getArea(){
-    return radius*radius*3.14; 
+bool Stack::push(int n){
+    if(tos>=10)
+        return false;
+    p[tos]=n;
+    tos++;
 }
-int main() {
-	Circle circleArray[3];
-
-    for(int i=0;i<3;i++){
-        circleArray[i].setRadius(10*(i+1));
-        cout<<"Circle"<<i<<"의 면적은"<<circleArray[i].getArea()<<endl;
-    }
-
-    // Circle *p;
-    // p=circleArray;
-    Circle *p=circleArray;
-    for(int i=0;i<3;i++){
-        cout<<"Circle"<<i<<"의 면적은"<<p[i].getArea()<<endl;
-    }
+bool Stack::pop(int &n){
+    if(tos<=0)
+        return false;
+    tos--;
+    n=p[tos];
+}
+int main()
+{
+    Stack s;
+    int n;
+    s.push(5);
+    s.push(6);
+    s.pop(n);
+    cout<<n;
+    s.pop(n);
+    cout<<n;
+    s.pop(n);
+    cout<<n;
 }
