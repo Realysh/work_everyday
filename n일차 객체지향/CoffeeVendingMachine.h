@@ -8,12 +8,12 @@ using namespace std;
 class CoffeeVendingMachine{
     string name;
     Container tong[3];
-    void fill()
+    void fill();
     void selectEspresso();
-    void selectsugar();
+    void selectSugar();
     void selectAmericano();
-    void show;
+    void show();
 public:
     CoffeeVendingMachine(string name){this->name = name;}
-    void run;
-}
+    void run();
+};

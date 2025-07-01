@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 #include "Container.h"
 using namespace std;
 
@@ -14,5 +16,12 @@ void Container::consume(int amount){
     if(size<amount)
         size=0;
     else
-        size-=aount;
+        size-=amount;
+}
+
+void Container::show(){
+    for(int i=0;i<size;i++)
+        cout<<'*';
+
+    cout<<endl;
 }
