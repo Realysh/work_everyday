@@ -15,7 +15,8 @@ element print_que(Que *q){
         printf("오류:큐 빔");
         exit(1);
     }
-    return q->data[(q->front)++];
+    element t=q->data[q->front];
+    q->front = q->
 }
 void initQue(Que *q){
     q->front=q->rear=0;
@@ -43,16 +44,15 @@ element deque(Que *q){
 
 int main(){
     Que q;
-    
+    int n;
     initQue(&q);
 
-    enqueue(&q,20);
-    enqueue(&q,30);
-    enqueue(&q,40);
-    enqueue(&q,50);
-    
-    for(int i=0;i<4;i++){
-        printf("큐 출력값: %d\n",print_que(&q));
+    while(!is_full(&q)){
+        printf("정수 입력:");
+        scanf("%d",&n);
+        enqueue(&q,n);
+        print_que(&q);
     }
+    printf
     return 0;
 }

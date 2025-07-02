@@ -1,22 +1,33 @@
 #include <iostream>
 using namespace std;
-class Circle{
-int radius;
-public:
-    Circle(){this->radius=1;}
-    Circle(int r){radius=r;}
-    void setRadius(int radius){this->radius=radius;}
-    double getArea(){return 3.14*radius*radius;}
-};
+//------------- #ifndef ADD_H---------
+//프로토타입 선언, 선언부만 먼저 알려주는 것
+int add(int x[],int size);
+int add(int x[],int size,int *y);
 
 int main(){
-    int n=2;
-    int &refn=n;
-
-    Circle c;
-    Circle &refc=c;
-    
-    cout<<c.getArea()<<' '<<refc.getArea()<<endl;
-    refc.setRadius(4);
-    cout<<c.getArea()<<' '<<refc.getArea()<<endl;
+    int a[]={1,2,3,4,5};
+    int b[]={6,7,8,9,10};    
+    int c=add(a,5);
+    int d=add(a,5,b);
+    cout<<c<<endl;
+    cout<<d<<endl;
+}
+int add(int *arr,int size){
+    int sum=0;
+    for(int i=0;i<size;i++){
+        sum+=arr[i];
+    }
+    return sum;
+}
+int add(int x[],int size,int *y=NULL){
+    int sum=0;
+    for(int i=0;i<size;i++){
+        sum+=x[i];
+    }
+    if(y==NULL) return sum;
+    for(int i=0;i<size;i++){
+        sum=sum+y[i];
+    }
+    return sum;
 }
