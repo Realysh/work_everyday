@@ -1,26 +1,35 @@
 #include <iostream>
 using namespace std;
-#include "CoffeeMachine.h"
 
+class Rect; //전방 선언
+class Rectmanager{
+public:
+    bool equals(Rect a,Rect b);
+};
+class Rect{
+int width;
+int height;
+public:
+    Rect(int width,int height);
+    friend bool Rectmanager::equals(Rect a,Rect b); //friend는 여기서만 한 번 쓰면 됨.
+};
+
+bool Rectmanager::equals(Rect a,Rect b){
+    if(a.width==b.width&&a.height==b.height)
+        return true;
+    else
+        return false;
+}
+
+Rect::Rect(int width,int height){
+    this->width=width;
+    this->height=height;
+}
 
 int main(){
-    CoffeeMachine java(5,10,3);
-    while(true){
-        cout<<"Espresso:1\nAmericano:2\nsugar:3\nFill:4\nStop:5\n"<<endl;
-        int order;
-        cin>>order;
-        switch(order){
-            case 1:
-                java.drinkEspresso(); break;
-            case 2:
-                java.drinkAmericano(); break;
-            case 3:
-                java.drinkSugarCoffee(); break;
-            case 4:
-                java.fill(); break;
-            case 5:
-                return 0;
-        }
-    }
+    Rect a(3,4),b(4,5);
+    Rectmanager r;
+    if(r.equals(a,b))cout <<"equal"<<endl;
+    else cout<<"not equal"<<endl;
     return 0;
 }
