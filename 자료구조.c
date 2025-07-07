@@ -1,58 +1,72 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define mqs 20
+
 typedef int element;
+typedef struct StackNode{
+    element data;
+    struct StackNode *link;
+}StackNode;
+
+
 typedef struct{
-    int front;
-    int rear;
-    element data[mqs];
-}Que;
-int is_empty(Que *q){
-    return q->rear+1==q->front;
-}
-element print_que(Que *q){
-    if(is_empty(q)){
-        printf("오류:큐 빔");
-        exit(1);
-    }
-    element t=q->data[q->front];
-    q->front = q->
-}
-void initQue(Que *q){
-    q->front=q->rear=0;
-}
-int is_full(Que *q){
-    return (q->rear+1)%mqs == q->front;
-}
-void enqueue(Que *q,element item){
-    if(is_full(q)){
-        printf("full\n");
-        return;
-    }
-    q->rear = (q->rear+1)%mqs;
-    q->data[q->rear]=item;
+    StackNode* top;
+}LinkedStackType;
+
+void init(LinkedStackType *s){
+    s->top=NULL;
 }
 
-element deque(Que *q){
-    if(is_empty(q)){
-        printf("큐 공백\n");
+void push(LinkedStackType *s,element item){
+    StackNode *temp=(StackNode*)malloc(sizeof(StackNode));
+    temp->data=item;
+    temp->link=s->top;
+    s->top=temp;
+}
+int is_empty(LinkedStackType *s){
+    return (s->top==NULL);
+}
+element pop_value(LinkedStackType *s){
+    //under flow check 필요
+    if(is_empty(s)){
+        fprintf(stderr,"Node is empty\n");
         exit(1);
     }
-    q->front = (q->front+1)%mqs;
-    return q->data[q->front];
+    StackNode *temp = s->top;
+    element data = s->top->data;
+    temp=s->top;
+    s->top=s->top->link; //temp->link;
+    free(temp);
+    return data;
 }
 
+void print_stack(LinkedStackType *s){
+    printf("현재 연결 리스트\n");
+    StackNode *p=s->top;
+    while(p!=NULL){
+        printf("%d -> ",p->data);
+        p=p->link;
+    }
+    printf("NULL\n");
+}
 int main(){
-    Que q;
-    int n;
-    initQue(&q);
+    LinkedStackType s;
+    init(&s);
 
-    while(!is_full(&q)){
-        printf("정수 입력:");
-        scanf("%d",&n);
-        enqueue(&q,n);
-        print_que(&q);
+    int x,y,data;
+    while(x!=1||x!=0){
+        printf("push(0) or pop(1):");
+        scanf("%d",&x);
+    
+        if(x==0){
+            printf("data를 입력하세요");
+            scanf("%d",&y);
+            push(&s,y);
+            print_stack(&s);
+        }
+        else if(x==1){
+            data=pop_value(&s);
+            printf("value : %d\n",data);
+            print_stack(&s);
+        }
     }
-    printf
-    return 0;
 }
