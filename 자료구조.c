@@ -1,72 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef int element;
-typedef struct StackNode{
+#include <string.h>
+typedef char element[100]; //이건 한 번 봐야함.
+typedef struct DListNode{ //이중연결 노드타입.
     element data;
-    struct StackNode *link;
-}StackNode;
+    struct DListNode *llink;
+    struct DListNode *rlink;
+}DListNode;
 
+DListNode* current;
 
-typedef struct{
-    StackNode* top;
-}LinkedStackType;
-
-void init(LinkedStackType *s){
-    s->top=NULL;
+void init(DListNode* head){
+    head->llink = head->rlink=head;
+    // head->rlink = head;
 }
 
-void push(LinkedStackType *s,element item){
-    StackNode *temp=(StackNode*)malloc(sizeof(StackNode));
-    temp->data=item;
-    temp->link=s->top;
-    s->top=temp;
+void dinsert(DListNode* before,const element data){ //안전성을 위해서 -> ㅅ
+    DListNode *newnode=(DListNode *)malloc(sizeof(DListNode));
+    strcpy(newnode->data,data);
+    newnode->llink=before;
+    newnode->rlink=before->rlink;
+    before->rlink->llink=newnode;
+    before->rlink=newnode; //순서가 바뀐다고 하면 newnode가 이중연결 리스트의 조건에 부합하지 않음.
 }
-int is_empty(LinkedStackType *s){
-    return (s->top==NULL);
+
+void ddelete(DListNode* head,DListNode* removed){ //이 head의 동적할당을 하기 위하여 main에서 head에게 동적할당을 한 건가?
+    if(removed==head) return;
+    removed->llink->rlink=removed->rlink;
+    removed->rlink->llink=removed->llink;
+    free(removed);
 }
-element pop_value(LinkedStackType *s){
-    //under flow check 필요
-    if(is_empty(s)){
-        fprintf(stderr,"Node is empty\n");
-        exit(1);
+
+void print_Dlist(DListNode* head){
+    DListNode *p;
+    for(p=head->rlink;p!=head;p->rlink){
+        if(p==current)
+            printf("<-| #%s# |-> ",p->data);
+        else
+            printf("<-| %s |->",p->data);
     }
-    StackNode *temp = s->top;
-    element data = s->top->data;
-    temp=s->top;
-    s->top=s->top->link; //temp->link;
-    free(temp);
-    return data;
+    printf("\n");
 }
 
-void print_stack(LinkedStackType *s){
-    printf("현재 연결 리스트\n");
-    StackNode *p=s->top;
-    while(p!=NULL){
-        printf("%d -> ",p->data);
-        p=p->link;
-    }
-    printf("NULL\n");
-}
 int main(){
-    LinkedStackType s;
-    init(&s);
-
-    int x,y,data;
-    while(x!=1||x!=0){
-        printf("push(0) or pop(1):");
-        scanf("%d",&x);
+    char ch;
+    DListNode *head=(DListNode*)malloc(sizeof(DListNode));
+    init(head);
+    printf("추가단계\n");
     
-        if(x==0){
-            printf("data를 입력하세요");
-            scanf("%d",&y);
-            push(&s,y);
-            print_stack(&s);
+    dinsert(head,"mamamia");
+    dinsert(head,"Dancing Queen");
+    dinsert(head,"Fernando");
+    
+    current = head->rlink;
+    print_Dlist(head);
+
+    do{
+        printf("\n명령어를 입력하시오(<,>,q) : ");
+        ch=getchar();
+        if(ch=='<'){
+            current=current->llink;
+            if(current==head){
+                current=current->llink;
+            }
         }
-        else if(x==1){
-            data=pop_value(&s);
-            printf("value : %d\n",data);
-            print_stack(&s);
+        else if(ch=='>'){
+            current = current->rlink;
+            if(current==head)
+                current=current->rlink;
         }
-    }
+        print_Dlist(head);
+        getchar();
+    }while(ch!='q');
+    return 0;
 }

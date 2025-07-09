@@ -1,15 +1,30 @@
 #include <iostream>
-#include "ColorPoint.h"
 using namespace std;
 
-int main(){
-    ColorPoint cp(5,5,"Red");
-    cp.setPoint(10,20); //ColorPoint클래스에다가 작성.
-    cp.setColor("BLUE");
-    cp.show();
+#include "Shape.h"
+#include "Circle.h"
+#include "Rect.h"
+#include "Line.h"
 
-    ColorPoint zeroPoint;
-    zeroPoint.show();
-    zoroPoint.up();
-    zoroPoint.show();
+void printAll(Shape* p){
+    while(p!=NULL){
+        p->paint();
+        p=p->getNext();
+    }
+}
+int main(){
+    Shape* pStart=NULL;
+    Shape* pLast;
+    pStart=new Circle(); //1.
+    pLast=pStart;
+
+    Shape* p = new Rect();//2.
+    pLast=pLast->add(p); //이 부분이 존나 중요.
+    
+    //3.
+    pLast = pLast->add(new Circle());
+    pLast = pLast->add(new Line());
+    pLast = pLast->add(new Rect());
+
+    printAll(pStart);
 }

@@ -1,45 +1,85 @@
 #include <stdio.h>
-#define maxStackSize 100000 //좌측 변수 내지 상수가 우측의 의미이다.
+#include <stdlib.h>
+#include <string.h>
 
 typedef int element;
-typedef struct{
-    int top;
-    int data[maxStackSize];
-}Stack;
+typedef struct QueNode{
+    int capacity;
+    element *data;
+    int front,rear;
+}QueNode;
 
-void init_stack(Stack *p){
-    p->top=-1;
-}
-void push(element item,Stack *p){
-    p->data[++p->top]=item;
-}
-
-int pop(Stack *s){
-    return s->data[s->top--];
+void init(QueNode *q,int size){
+    q->capacity=0;
+    q->data=(element*)malloc(size*sizeof(element));
+    q->front=q->rear=0;
 }
 
-int sum(Stack *p){
-    int i;
-    int sum=0;
-    for(i=0;i<=p->top;i++){
-        sum+=p->data[i];
-    }
-    return sum;
+void push(QueNode *q,element item){
+    q->capacity++;
+    q->data[(q->rear)++]=item;
 }
 
-int main(){
-    Stack s; //스택 선언
-    init_stack(&s);
-    
-    int t,input;
+int pop(QueNode *q){
+    if (q->capacity == 0)
+        return -1;
+    int item = q->data[q->front++];
+    q->capacity--;
+    return item;
+}
+
+int size(QueNode *q){
+    return q->capacity;
+}
+
+int empty(QueNode *q){
+    if(q->capacity==0)
+        return 1;
+    else
+        return 0;
+}
+
+int front(QueNode *q){
+    if(q->capacity==0)
+        return -1;
+    else
+        return (q->data[q->front]);
+}
+
+int back(QueNode *q){
+    if(q->capacity==0)
+        return -1;
+    else
+        return (q->data[(q->rear)-1]);
+}
+int main(void){
+
+    QueNode q;
+    int t,x,item;
+    char menu[6];
     scanf("%d",&t);
+    
+    init(&q,t);
     while(t--){
-        scanf("%d",&input);
-        if(!input)
-            pop(&s);
-        else
-            push(input,&s);
+        scanf("%s",menu);
+        if(!strcmp("push",menu)){
+            scanf("%d",&item);
+            push(&q,item);
+        }
+        else if(!strcmp("pop",menu)){
+            printf("%d\n",pop(&q));
+        }
+        else if(!strcmp("size",menu)){
+            printf("%d\n",size(&q));
+        }
+        else if(!strcmp("empty",menu)){
+            printf("%d\n",empty(&q));
+        }
+        else if(!strcmp("front",menu)){
+            printf("%d\n",front(&q));
+        }
+        else if(!strcmp("back",menu)){
+            printf("%d\n",back(&q));
+        }
     }
-    printf("%d",sum(&s));
-    return 0;
 }
