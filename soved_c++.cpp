@@ -1,28 +1,26 @@
-#include<iostream>
+#include <iostream>
+#include <cmath>
 using namespace std;
-int main(){
-    int count=0;
-    char c; //읽은 문자만 return 해주게 됨.
-    while(true){
-        cin.get(c);
-        if(cin.eof()) //c를 만나면
-            break;
-        else if(c==' ')
-            count++;
-        else if(c=='\n')
-            break;
-    }
-    cout<<count<<endl;
-}
 
-void f(){
-    int c; //char 잡으면 안 됨.
-    int count=0;
-    while((c=cin.get())!=EOF){
-        if(c=='a')
+int main(){
+    int t,count=0;
+    cin>>t;
+    while(t--){
+        string s;
+        bool hasDuplicate = false;
+        cin>>s;
+        for (int i = 0; i < s.size() && !hasDuplicate; ++i) {
+            char c = s[i];
+            for (int j = i + 1; j < s.size(); ++j) {
+                if (c == s[j]) {
+                    hasDuplicate = true;
+                    break;
+                }
+            }
+        }
+        if (!hasDuplicate) {
             count++;
-        else if(c=='\n')
-            break;
+        }
     }
-    cout<<count<<endl;
+    cout<<count;
 }
