@@ -46,6 +46,7 @@
         "ratio": "cpp",
         "sstream": "cpp",
         "variant": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "map": "cpp"
     }
 }
